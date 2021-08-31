@@ -8,8 +8,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 @FunctionalInterface
-public
-interface RetryCondition<T> {
+public interface RetryCondition<T> {
 
     boolean retryable(T element);
 
