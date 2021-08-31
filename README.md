@@ -7,13 +7,13 @@ public static void main(String[] args) {
     final EasingFunction delay = fixed(100).plus(linear(150)).plus(random(50, 250)).limit(5000);
 
     final AtomicInteger count = new AtomicInteger(0);
-    final Consumer <Throwable> log = (e) -> System.out.println("[" + Instant.now() + " - " + count.incrementAndGet() + "] Received: " + e);
-    final RetryCondition <Throwable> logger = RetryCondition.intercept(log);
-    final RetryCondition <Throwable> backoff = RetryCondition.backoff(delay, suspensor);
+    final Consumer<Throwable> log = (e) -> System.out.println("[" + Instant.now() + " - " + count.incrementAndGet() + "] Received: " + e);
+    final RetryCondition<Throwable> logger = RetryCondition.intercept(log);
+    final RetryCondition<Throwable> backoff = RetryCondition.backoff(delay, suspensor);
 
-    final RetryCondition <Throwable> rejection = logger.and(backoff);
+    final RetryCondition<Throwable> rejection = logger.and(backoff);
 
-    final CallableTask <?> task = () -> {
+    final CallableTask<?> task = () -> {
         Thread.sleep(500); // simulate expensive task
         if (ThreadLocalRandom.current().nextBoolean()) {
             throw new IllegalStateException("Not OK"); // ... that may fail
@@ -21,7 +21,7 @@ public static void main(String[] args) {
         return "OK";
     };
 
-    final ExecutionResult <? , ?> execution;
+    final ExecutionResult<? , ?> execution;
     if (ThreadLocalRandom.current().nextBoolean()) {
         execution = Retry.defer(task, rejection); // asynchronous (non-blocking)
     } else {
