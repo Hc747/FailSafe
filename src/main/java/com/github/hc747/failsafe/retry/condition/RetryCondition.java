@@ -83,6 +83,16 @@ public interface RetryCondition<T> {
         };
     }
 
+    static <V> RetryCondition<V> instance(Class<?> cls) {
+        Objects.requireNonNull(cls, "cls");
+        return cls::isInstance;
+    }
+
+    static <V> RetryCondition<V> assignable(Class<?> cls) {
+        Objects.requireNonNull(cls, "cls");
+        return (e) -> e.getClass().isAssignableFrom(cls);
+    }
+
     static <V> RetryCondition<V> attempts(int limit) {
         return attempts(limit, MonotonicCounter.counter());
     }

@@ -29,11 +29,21 @@ public class DeferredExecution<R> implements ExecutionResult<R, Throwable> {
     }
 
     @Override
+    public boolean async() {
+        return true;
+    }
+
+    @Override
     public boolean cancel(boolean interrupt) {
         return awaiter.cancel(interrupt);
     }
 
     private ExecutionResult<R, Throwable> await() {
         return awaiter.await();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[async: " + async() + "]" + "[deferred: " + awaiter +"]";
     }
 }

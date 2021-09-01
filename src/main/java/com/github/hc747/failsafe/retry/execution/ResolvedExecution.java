@@ -22,4 +22,9 @@ public class ResolvedExecution<R> implements ExecutionResult<R, Throwable> {
     public boolean succeeded() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[async: " + async() + "]" + "[resolved: " + result +"]";
+    }
 }

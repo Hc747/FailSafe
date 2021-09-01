@@ -7,5 +7,4 @@ public interface ExecutionAwaiter<T> {
     ExecutionResult<T, Throwable> await();
 
     boolean cancel(boolean interrupt);
-
 }

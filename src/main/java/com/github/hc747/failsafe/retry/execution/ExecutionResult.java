@@ -31,6 +31,10 @@ public interface ExecutionResult<R, T extends Throwable> {
         return false;
     }
 
+    default boolean async() {
+        return false;
+    }
+
     //TODO: extract factory methods
     static <X> ExecutionResult<X, Throwable> resolved(X result) {
         return new ResolvedExecution<>(result);

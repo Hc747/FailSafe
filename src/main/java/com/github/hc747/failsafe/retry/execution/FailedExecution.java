@@ -24,4 +24,9 @@ public class FailedExecution<R, T extends Throwable> implements ExecutionResult<
     public boolean succeeded() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[async: " + async() + "]" + "[failed: " + cause +"]";
+    }
 }
