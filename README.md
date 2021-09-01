@@ -1,4 +1,4 @@
-# failsafe
+# FailSafe
 Dynamic and concurrent retry constructs for the JVM.
 
 ```Java
